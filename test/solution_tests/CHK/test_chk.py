@@ -65,6 +65,8 @@ def test_multiple_discounted_items():
         ("E B", 40 + 30),
         ("EE B", 40 * 2),
         ("EE BB", 40 * 2 + 30),
+        ("EEE BB", 40 * 3 + 30),
+        ("EEEE BB", 40 * 4),
     ],
 )
 def test_free_items(skus, price):
@@ -110,4 +112,5 @@ def test_get_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 

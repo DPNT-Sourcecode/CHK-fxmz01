@@ -34,7 +34,7 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     return count // pack_size, count % pack_size
 
 
-def get_free_items_discount(sku, counter):
+def get_free_items_discount(sku: str, count: int) -> tuple[str, int]:
     for for_each, you_get, free_sku in free_items.get(sku, []):
         pass
     return 0
@@ -53,11 +53,12 @@ def checkout(skus: str) -> int:
             return ERROR
 
         total += get_items_price(sku, count)
-        free_items_discount = get_free_items_discount(sku, counter)
+        free_sku, free_item_discount = get_free_items_discount(sku, count)
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
