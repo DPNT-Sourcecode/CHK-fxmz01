@@ -1,4 +1,4 @@
-from lib.solutions.CHK.checkout_solution import _discountpacks, checkout
+from lib.solutions.CHK.checkout_solution import _counter, _discountpacks, checkout
 
 
 def test_empty():
@@ -19,10 +19,16 @@ def test_singleitems():
     assert checkout("B") == 30
     assert checkout("C") == 20
 
+
+def test_counter():
+    assert _counter("A B A") == {"A": 2, "B": 1}
+
+
 def test_discountpacks():
-    assert _discountpacks(4,2) == 2,0
-    assert _discountpacks(4,3) == 1,1
-    assert _discountpacks(10,3) == 3,1
+    assert _discountpacks(4, 2) == (2, 0)
+    assert _discountpacks(4, 3) == (1, 1)
+    assert _discountpacks(10, 3) == (3, 1)
+
 
 # +------+-------+----------------+
 # | Item | Price | Special offers |
@@ -32,4 +38,3 @@ def test_discountpacks():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
-

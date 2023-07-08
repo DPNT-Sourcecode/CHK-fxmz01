@@ -7,6 +7,11 @@ prices = {
     "D": 15,
 }
 
+discounts = {
+    "A": (3, 130),
+    "B": (2, 45),
+}
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -21,10 +26,9 @@ def checkout(skus: str) -> int:
         total += prices[sku]
     return total
 
+def _counter(skus: str) -> dict[str, int]:
+    return {}
 
 def _discountpacks(total: int, pack_size) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return total // pack_size, total % pack_size
-
-
-
