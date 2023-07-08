@@ -18,12 +18,10 @@ discounts = {
     "B": [(2, 45)],
 }
 
-free_items={
-    "E": [(2, 1, "B")]
-}
+free_items = {"E": [(2, 1, "B")]}
 
 
-def items_price(sku, count):
+def get_items_price(sku, count):
     price = 0
     for pack_size, pack_price in discounts.get(sku, []):
         packs, count = _discountpack_counts(count, pack_size)
@@ -42,21 +40,16 @@ def checkout(skus: str) -> int:
     if not isinstance(skus, str):
         return ERROR
 
+    counter = _counter(skus)
     total = 0
-    for sku, count in _counter(skus).items():
+    for sku, count in counter.items():
         if sku not in prices:
             return ERROR
 
-        total += items_price(sku, count)
-
+        total += get_items_price(sku, count)
+        free_items_discount = 
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
-
-
-
-
-
-

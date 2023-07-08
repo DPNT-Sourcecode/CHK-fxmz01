@@ -4,7 +4,7 @@ from lib.solutions.CHK.checkout_solution import (
     _counter,
     _discountpack_counts,
     checkout,
-    items_price,
+    get_items_price,
 )
 
 
@@ -60,16 +60,15 @@ def test_multiple_discounted_items():
 
 
 @pytest.mark.parametrize(
-    "items,price",
+    "skus,price",
     [
         ("E B", 40 + 30),
-        ("EE B", 40*2),
-        ("EE BB", 40*2 + 30),
+        ("EE B", 40 * 2),
+        ("EE BB", 40 * 2 + 30),
     ],
 )
-def test_free_items(items, price):
-    assert checkout(items) == price
-
+def test_free_items(skus, price):
+    assert checkout(skus) == price
 
 
 ####################################
@@ -86,9 +85,16 @@ def test_discountpack_counts():
     assert _discountpack_counts(4, 3) == (1, 1)
     assert _discountpack_counts(10, 3) == (3, 1)
 
-
-def test_items_price():
-    assert items_price("A", 2) == 50 * 2
+@pytest.mark.parametrize(
+    "sku,price",
+    [
+        ("E B", 40 + 30),
+        ("EE B", 40 * 2),
+        ("EE BB", 40 * 2 + 30),
+    ],
+)
+def test_get_items_price():
+    assert get_items_price("A", 2) == 50 * 2
     assert items_price("A", 3) == 130
     assert items_price("A", 4) == 130 + 50
     assert items_price("A", 5) == 200
@@ -105,9 +111,3 @@ def test_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
-
-
-
-
-
-
