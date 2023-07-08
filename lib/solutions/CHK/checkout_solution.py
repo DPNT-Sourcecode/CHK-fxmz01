@@ -22,3 +22,9 @@ def checkout(skus: str) -> int:
     return total
 
 
+def _discountpacks(total: int, pack_size) -> tuple[int, int]:
+    """Returns number of packs, number of individual priced items"""
+    return total // pack_size, total % pack_size
+
+
+
