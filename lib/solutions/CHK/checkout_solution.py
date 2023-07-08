@@ -18,7 +18,7 @@ discounts = {
     "B": [(2, 45)],
 }
 
-free_items = {"E": [(2, 1, "B")]}
+free_items = {"E": (2, 1, "B")}
 
 
 def get_items_price(sku, count):
@@ -53,12 +53,19 @@ def checkout(skus: str) -> int:
             return ERROR
 
         total += get_items_price(sku, count)
-        free_sku, free_item_discount = get_free_items_discount(sku, count)
+
+
+        # Free items?
+        # free_sku, free_item_discount = get_free_items_discount(sku, count)
+        free_sku, free_item_discount = free_items.get(sku, (None, 0))
+        if free_sku:
+
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
