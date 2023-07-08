@@ -24,6 +24,7 @@ def checkout(skus: str) -> int:
 
     total = 0
     for sku, count in _counter(skus).items():
+        print(f"SKU {sku}")
         if sku not in prices:
             return ERROR
 
@@ -39,12 +40,13 @@ def checkout(skus: str) -> int:
 
 
 def _counter(skus: str) -> dict[str, int]:
-    return Counter(skus.strip())
+    return Counter(skus.replace(" ", ""))
 
 
 def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
+
 
 
 
