@@ -45,11 +45,3 @@ def _counter(skus: str) -> dict[str, int]:
 def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
-
-
-
-
-
-
-
-
