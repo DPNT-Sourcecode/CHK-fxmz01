@@ -17,22 +17,6 @@ discounts = {
     "B": [(2, 45)],
 }
 
-# class Discounts:
-#     discounts = {
-#         # By hardcoding discounts ordering (big to small) we can simplify implementation.
-#         # This of course wouldn't apply in a real case where this data would come from a DB
-#         "A": [(5, 200), (3, 130)],
-#         "B": [(2, 45)],
-#     }
-
-#     @classmethod
-#     def get(cls, sku: str):
-#         d = cls.discounts.get(sku)
-#         if d:
-#             return d[0]
-#         else:
-#             return None
-
 
 def items_price(sku, count):
     price = 0
@@ -58,19 +42,14 @@ def checkout(skus: str) -> int:
         if sku not in prices:
             return ERROR
 
-        discount = Discounts.get(sku)
-        if discount:
-            pack_size, pack_price = discount
-            packs, singles = _discountpack_counts(count, [pack_size])
-            total += packs * pack_price + singles * prices[sku]
-        else:
-            total += count * prices[sku]
+        total += items_price(sku, count)
 
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 

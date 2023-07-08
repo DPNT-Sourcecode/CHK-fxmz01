@@ -1,4 +1,9 @@
-from lib.solutions.CHK.checkout_solution import _counter, _discountpack_counts, checkout, items_price
+from lib.solutions.CHK.checkout_solution import (
+    _counter,
+    _discountpack_counts,
+    checkout,
+    items_price,
+)
 
 
 def test_empty():
@@ -47,11 +52,11 @@ def test_spacing():
     assert checkout(" A A ") == 100
 
 
-def test_multiple_discounts():
+def test_multiple_discounted_items():
     assert checkout("AAAAA AAA A") == 200 + 130 + 50
     assert checkout("AAAAA AAA A BB") == 200 + 130 + 50 + 45
 
-
+def test_
 ####################################
 # Internals tests
 
@@ -66,27 +71,15 @@ def test_discountpack_counts():
     assert _discountpack_counts(4, 3) == (1, 1)
     assert _discountpack_counts(10, 3) == (3, 1)
 
+
 def test_items_price():
-    assert items_price("A", 2) == 50*2
+    assert items_price("A", 2) == 50 * 2
     assert items_price("A", 3) == 130
     assert items_price("A", 4) == 130 + 50
     assert items_price("A", 5) == 200
-    assert items_price("A", 6) == 200+50
-    assert items_price("A", 8) == 200+130
-    assert items_price("A", 8) == 200+130
-
-# def test_discountpack_counts_single_discount():
-#     assert _discountpack_counts(4, [2]) == ([2], 0)
-#     assert _discountpack_counts(4, [3]) == ([1], 1)
-#     assert _discountpack_counts(10, [3]) == ([3], 1)
-
-
-# def test_discountpack_counts_multi_discount():
-#     assert _discountpack_counts(9, [5, 3]) == ([1, 1], 1)
-#     assert _discountpack_counts(10, [5, 3]) == ([2, 0], 0)
-#     assert _discountpack_counts(11, [5, 3]) == ([2, 0], 1)
-#     assert _discountpack_counts(13, [5, 3]) == ([2, 1], 0)
-#     assert _discountpack_counts(14, [5, 3]) == ([2, 1], 1)
+    assert items_price("A", 6) == 200 + 50
+    assert items_price("A", 8) == 200 + 130
+    assert items_price("A", 9) == 200 + 130 + 50
 
 
 # +------+-------+----------------+
@@ -97,6 +90,7 @@ def test_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 
