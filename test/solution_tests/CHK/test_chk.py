@@ -27,6 +27,8 @@ def test_multiple_items():
 
 def test_discounted_items():
     assert checkout("A A A") == 130
+    # Having sums rather than results on the right side facilitates
+    # understanding where the numbers come from
     assert checkout("A A A A") == 130 + 50
     assert checkout("A A A A B B") == 130 + 50 + 45
     assert checkout("A A A B B B") == 130 + 45 + 30
@@ -40,6 +42,16 @@ def test_spacing():
     assert checkout(" AA ") == 100
     assert checkout("A A") == 100
     assert checkout(" A A ") == 100
+
+
+def test_multiple_discounts():
+    assert checkout("AAAAA AAA A") == 200 + 130 + 50
+    assert checkout("AAAAA AAA A BB") == 200 + 130 + 50 + 45
+
+
+####################################
+# Internals tests
+
 
 def test_counter():
     assert _counter("A B A") == {"A": 2, "B": 1}
@@ -59,3 +71,4 @@ def test_discountpack_counts():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+

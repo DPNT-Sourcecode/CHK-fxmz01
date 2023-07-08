@@ -19,7 +19,11 @@ class Discounts:
 
     @classmethod
     def get(cls, sku: str):
-        return cls.discounts.get(sku)
+        d = cls.discounts.get(sku)
+        if d:
+            return d[0]
+        else:
+            return None
 
 
 # noinspection PyUnusedLocal
@@ -51,5 +55,6 @@ def _counter(skus: str) -> dict[str, int]:
 def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
+
 
 
