@@ -33,11 +33,13 @@ def test_discounted_items():
     assert checkout("A A A C") == 130 + 20
 
 
-def test_nonspaced():
+def test_spacing():
     # It is not specified how the items are separated in the input,
     # or even if they are
     assert checkout("AA") == 100
-
+    assert checkout(" AA ") == 100
+    assert checkout("A A") == 100
+    assert checkout(" A A ") == 100
 
 def test_counter():
     assert _counter("A B A") == {"A": 2, "B": 1}
@@ -57,6 +59,7 @@ def test_discountpack_counts():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 
