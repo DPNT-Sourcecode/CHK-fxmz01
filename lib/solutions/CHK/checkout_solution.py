@@ -1,5 +1,4 @@
 from collections import Counter
-from dataclasses import dataclass
 
 
 ERROR = -1
@@ -11,15 +10,16 @@ prices = {
     "D": 15,
 }
 
-@dataclass
+
 class Discounts:
     discounts = {
-        "A": (3, 130),
-        "B": (2, 45),
+        "A": [(3, 130)],
+        "B": [(2, 45)],
     }
 
-    def get(self, sku: str):
-        return self.discounts.get(sku)
+    @classmethod
+    def get(cls, sku: str):
+        return cls.discounts.get(sku)
 
 
 # noinspection PyUnusedLocal
@@ -33,7 +33,7 @@ def checkout(skus: str) -> int:
         if sku not in prices:
             return ERROR
 
-        discount = discounts.get(sku)
+        discount = Discounts.get(sku)
         if discount:
             pack_size, pack_prize = discount
             packs, singles = _discountpack_counts(count, pack_size)
@@ -51,4 +51,5 @@ def _counter(skus: str) -> dict[str, int]:
 def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
+
 
