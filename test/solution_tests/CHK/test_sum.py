@@ -2,7 +2,7 @@ from lib.solutions.CHK.checkout_solution import checkout
 
 
 def test_empty():
-    assert checkout("") == -1
+    assert checkout("") == 0
 
 
 def test_badtype_input():
@@ -19,6 +19,7 @@ def test_singleitems():
     assert checkout("B") == 30
     assert checkout("C") == 20
 
+
 # +------+-------+----------------+
 # | Item | Price | Special offers |
 # +------+-------+----------------+
@@ -27,4 +28,5 @@ def test_singleitems():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
