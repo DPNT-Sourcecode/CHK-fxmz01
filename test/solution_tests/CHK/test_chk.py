@@ -1,3 +1,5 @@
+import pytest
+
 from lib.solutions.CHK.checkout_solution import (
     _counter,
     _discountpack_counts,
@@ -56,7 +58,21 @@ def test_multiple_discounted_items():
     assert checkout("AAAAA AAA A") == 200 + 130 + 50
     assert checkout("AAAAA AAA A BB") == 200 + 130 + 50 + 45
 
-def test_
+
+@pytest.mark.parametrize(
+    "items,price",
+    [
+        ("E B", 40 + 30),
+        ("EE B", 40*2),
+        
+        
+    ],
+)
+def test_free_items():
+    assert checkout("E B") = 40 + 30
+
+
+
 ####################################
 # Internals tests
 
@@ -90,6 +106,7 @@ def test_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 
