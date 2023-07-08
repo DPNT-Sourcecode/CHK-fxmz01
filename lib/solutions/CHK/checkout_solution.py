@@ -15,7 +15,7 @@ class Discounts:
     discounts = {
         # By hardcoding discounts ordering (big to small) we can simplify implementation.
         # This of course wouldn't apply in a real case where this data would come from a DB
-        "A": [(5,200), (3, 130)],
+        "A": [(5, 200), (3, 130)],
         "B": [(2, 45)],
     }
 
@@ -26,8 +26,6 @@ class Discounts:
             return d[0]
         else:
             return None
-    
-
 
 
 # noinspection PyUnusedLocal
@@ -60,11 +58,13 @@ def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     in_packs = []
     for p in sorted(pack_sizes, reverse=True):
-        in_packs.append(count//p)
+        in_packs.append(count // p)
         count %= p
 
-    
+    return in_packs, count
+
     # return count // pack_size, count % pack_size
+
 
 
 

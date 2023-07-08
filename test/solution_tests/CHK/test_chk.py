@@ -9,6 +9,9 @@ def test_badtype_input():
     assert checkout(1) == -1
 
 
+# TODO Is it worth to use parameterize in these tests?
+
+
 def test_non_existing_sku():
     assert checkout("X") == -1
     assert checkout("A X") == -1
@@ -64,11 +67,11 @@ def test_discountpack_counts_single_discount():
 
 
 def test_discountpack_counts_multi_discount():
-    assert _discountpack_counts(9, [5,3]) == ([1,1], 1)
-    assert _discountpack_counts(10, [5,3]) == ([2,0], 0)
-    assert _discountpack_counts(11, [5,3]) == ([2,0], 1)
-    assert _discountpack_counts(13, [5,3]) == ([2,1], 0)
-    assert _discountpack_counts(14, [5,3]) == ([2,1], 1)
+    assert _discountpack_counts(9, [5, 3]) == ([1, 1], 1)
+    assert _discountpack_counts(10, [5, 3]) == ([2, 0], 0)
+    assert _discountpack_counts(11, [5, 3]) == ([2, 0], 1)
+    assert _discountpack_counts(13, [5, 3]) == ([2, 1], 0)
+    assert _discountpack_counts(14, [5, 3]) == ([2, 1], 1)
 
 
 # +------+-------+----------------+
@@ -79,5 +82,6 @@ def test_discountpack_counts_multi_discount():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
