@@ -8,13 +8,18 @@ prices = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
 
 discounts = {
-    # By hardcoding discounts ordering (big to small) we can simplify implementation.
+    # By hardcoding discounts ordering (big to small) we can simplify calculating item prices.
     # This of course wouldn't apply in a real case where this data would come from a DB
     "A": [(5, 200), (3, 130)],
     "B": [(2, 45)],
+}
+
+free_items={
+    "E": [(2, 1, "B")]
 }
 
 
@@ -49,6 +54,7 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 

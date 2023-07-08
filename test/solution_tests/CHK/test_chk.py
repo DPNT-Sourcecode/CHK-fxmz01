@@ -64,12 +64,11 @@ def test_multiple_discounted_items():
     [
         ("E B", 40 + 30),
         ("EE B", 40*2),
-        
-        
+        ("EE BB", 40*2 + 30),
     ],
 )
-def test_free_items():
-    assert checkout("E B") = 40 + 30
+def test_free_items(items, price):
+    assert checkout(items) == price
 
 
 
@@ -106,6 +105,7 @@ def test_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 
