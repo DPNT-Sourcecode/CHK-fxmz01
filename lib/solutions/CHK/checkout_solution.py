@@ -35,7 +35,8 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
 
 
 def get_free_items_discount(sku, counter):
-    for 
+    for for_each, you_get, free_sku in free_items.get(sku, []):
+        pass
     return 0
 
 
@@ -58,4 +59,5 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
