@@ -28,6 +28,7 @@ class Discounts:
             return None
 
 
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -54,13 +55,7 @@ def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
 
 
-def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[list[int], int]:
+def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
-    in_packs = []
-    for p in sorted(pack_sizes, reverse=True):
-        in_packs.append(count // p)
-        count %= p
+    return count // pack_size, count % pack_size
 
-    return in_packs, count
-
-    # return count // pack_size, count % pack_size

@@ -59,19 +59,22 @@ def test_multiple_discounts():
 def test_counter():
     assert _counter("A B A") == {"A": 2, "B": 1}
 
+def test_discountpack_counts():
+    assert _discountpack_counts(4, 2) == (2, 0)
+    assert _discountpack_counts(4, 3) == (1, 1)
+    assert _discountpack_counts(10, 3) == (3, 1)
+# def test_discountpack_counts_single_discount():
+#     assert _discountpack_counts(4, [2]) == ([2], 0)
+#     assert _discountpack_counts(4, [3]) == ([1], 1)
+#     assert _discountpack_counts(10, [3]) == ([3], 1)
 
-def test_discountpack_counts_single_discount():
-    assert _discountpack_counts(4, [2]) == ([2], 0)
-    assert _discountpack_counts(4, [3]) == ([1], 1)
-    assert _discountpack_counts(10, [3]) == ([3], 1)
 
-
-def test_discountpack_counts_multi_discount():
-    assert _discountpack_counts(9, [5, 3]) == ([1, 1], 1)
-    assert _discountpack_counts(10, [5, 3]) == ([2, 0], 0)
-    assert _discountpack_counts(11, [5, 3]) == ([2, 0], 1)
-    assert _discountpack_counts(13, [5, 3]) == ([2, 1], 0)
-    assert _discountpack_counts(14, [5, 3]) == ([2, 1], 1)
+# def test_discountpack_counts_multi_discount():
+#     assert _discountpack_counts(9, [5, 3]) == ([1, 1], 1)
+#     assert _discountpack_counts(10, [5, 3]) == ([2, 0], 0)
+#     assert _discountpack_counts(11, [5, 3]) == ([2, 0], 1)
+#     assert _discountpack_counts(13, [5, 3]) == ([2, 1], 0)
+#     assert _discountpack_counts(14, [5, 3]) == ([2, 1], 1)
 
 
 # +------+-------+----------------+
@@ -82,3 +85,4 @@ def test_discountpack_counts_multi_discount():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
