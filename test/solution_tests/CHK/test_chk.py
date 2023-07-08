@@ -19,6 +19,9 @@ def test_singleitems():
     assert checkout("B") == 30
     assert checkout("C") == 20
 
+def test_discountpacks():
+    assert discountpacks
+
 
 # +------+-------+----------------+
 # | Item | Price | Special offers |
@@ -28,5 +31,3 @@ def test_singleitems():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
-
-
