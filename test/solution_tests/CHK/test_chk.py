@@ -14,20 +14,32 @@ def test_non_existing_sku():
     assert checkout("A X") == -1
 
 
-def test_singleitems():
+def test_single_items():
     assert checkout("A") == 50
     assert checkout("B") == 30
     assert checkout("C") == 20
 
 
+def test_multiple_items():
+    assert checkout("A A") == 100
+    assert checkout("A C A") == 120
+
+def test_discounted_items():
+    assert checkout("A A A") == 130
+    assert checkout("A A A A") == 130 + 50
+    assert checkout("A A A A B B") == 130 + 50 + 45
+    assert checkout("A A A B B B" ) == 130 + 45 + 30
+    assert checkout("A A A C") == 130 + 50 + 45
+
+
 def test_counter():
     assert _counter("A B A") == {"A": 2, "B": 1}
-    
 
-def test_discountpacks():
-    assert _discountpacks(4, 2) == (2, 0)
-    assert _discountpacks(4, 3) == (1, 1)
-    assert _discountpacks(10, 3) == (3, 1)
+
+def test_discountpack_counts():
+    assert _discountpack_counts(4, 2) == (2, 0)
+    assert _discountpack_counts(4, 3) == (1, 1)
+    assert _discountpack_counts(10, 3) == (3, 1)
 
 
 # +------+-------+----------------+
@@ -38,4 +50,5 @@ def test_discountpacks():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
