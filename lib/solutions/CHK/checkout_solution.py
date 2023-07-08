@@ -33,13 +33,19 @@ discounts = {
 #         else:
 #             return None
 
+
 def items_prize(sku, count):
     prize = 0
     for pack_size, pack_prize in discounts.get(sku, []):
-        
+        packs, count = _discountpack_counts(count, pack_size)
+        prize+=packs*pack_prize
+    return prize + count*priz
+
+
 def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -65,8 +71,6 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
-
-
 
 
 
