@@ -82,6 +82,3 @@ def test_discountpack_counts_multi_discount():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
-
-
-

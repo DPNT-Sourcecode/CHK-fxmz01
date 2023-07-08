@@ -64,10 +64,3 @@ def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[list[int], 
     return in_packs, count
 
     # return count // pack_size, count % pack_size
-
-
-
-
-
-
-
