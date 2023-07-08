@@ -42,7 +42,7 @@ def checkout(skus: str) -> int:
         discount = Discounts.get(sku)
         if discount:
             pack_size, pack_prize = discount
-            packs, singles = _discountpack_counts(count, pack_size)
+            packs, singles = _discountpack_counts(count, [pack_size])
             total += packs * pack_prize + singles * prices[sku]
         else:
             total += count * prices[sku]
@@ -54,7 +54,7 @@ def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
 
 
-def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[int, int]:
+def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[list[int], int]:
     """Returns number of packs, number of individual priced items"""
     in_packs = []
     for p in sorted(pack_sizes, reverse=True):
@@ -64,6 +64,7 @@ def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[int, int]:
     return in_packs, count
 
     # return count // pack_size, count % pack_size
+
 
 
 
