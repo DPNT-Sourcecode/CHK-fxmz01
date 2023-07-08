@@ -13,7 +13,9 @@ prices = {
 
 class Discounts:
     discounts = {
-        "A": [(3, 130)],
+        # By hardcoding discounts ordering (big to small) we can simplify implementation.
+        # This of course wouldn't apply in a real case where this data would come from a DB
+        "A": [(5,200), (3, 130)],
         "B": [(2, 45)],
     }
 
@@ -24,6 +26,8 @@ class Discounts:
             return d[0]
         else:
             return None
+    
+
 
 
 # noinspection PyUnusedLocal
@@ -52,9 +56,10 @@ def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
 
 
-def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
+def _discountpack_counts(count: int, pack_sizes: list[int]) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
+
 
 
 
