@@ -85,22 +85,21 @@ def test_discountpack_counts():
     assert _discountpack_counts(4, 3) == (1, 1)
     assert _discountpack_counts(10, 3) == (3, 1)
 
+
 @pytest.mark.parametrize(
-    "sku,price",
+    "sku,count,price",
     [
-        ("E B", 40 + 30),
-        ("EE B", 40 * 2),
-        ("EE BB", 40 * 2 + 30),
+        ("A", 2, 50 * 2),
+        ("A", 3, 130),
+        ("A", 4, 130 + 50),
+        ("A", 5, 200),
+        ("A", 6, 200 + 50),
+        ("A", 8, 200 + 130),
+        ("A", 9, 200 + 130 + 50),
     ],
 )
 def test_get_items_price():
     assert get_items_price("A", 2) == 50 * 2
-    assert items_price("A", 3) == 130
-    assert items_price("A", 4) == 130 + 50
-    assert items_price("A", 5) == 200
-    assert items_price("A", 6) == 200 + 50
-    assert items_price("A", 8) == 200 + 130
-    assert items_price("A", 9) == 200 + 130 + 50
 
 
 # +------+-------+----------------+
@@ -111,3 +110,4 @@ def test_get_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+

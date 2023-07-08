@@ -34,6 +34,11 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     return count // pack_size, count % pack_size
 
 
+def get_free_items_discount(sku, counter):
+    for 
+    return 0
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -47,9 +52,10 @@ def checkout(skus: str) -> int:
             return ERROR
 
         total += get_items_price(sku, count)
-        free_items_discount = 
+        free_items_discount = get_free_items_discount(sku, counter)
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
