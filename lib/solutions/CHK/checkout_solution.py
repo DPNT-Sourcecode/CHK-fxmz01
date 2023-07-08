@@ -1,4 +1,5 @@
 from collections import Counter
+from dataclasses import dataclass
 
 
 ERROR = -1
@@ -10,10 +11,15 @@ prices = {
     "D": 15,
 }
 
-discounts = {
-    "A": (3, 130),
-    "B": (2, 45),
-}
+@dataclass
+class Discounts:
+    discounts = {
+        "A": (3, 130),
+        "B": (2, 45),
+    }
+
+    def get(self, sku: str):
+        return self.discounts.get(sku)
 
 
 # noinspection PyUnusedLocal
@@ -45,3 +51,4 @@ def _counter(skus: str) -> dict[str, int]:
 def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
+
