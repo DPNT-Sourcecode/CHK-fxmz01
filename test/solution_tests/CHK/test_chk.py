@@ -22,7 +22,7 @@ def test_singleitems():
 
 def test_counter():
     assert _counter("A B A") == {"A": 2, "B": 1}
-
+    
 
 def test_discountpacks():
     assert _discountpacks(4, 2) == (2, 0)
@@ -38,3 +38,4 @@ def test_discountpacks():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
