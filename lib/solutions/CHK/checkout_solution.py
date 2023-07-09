@@ -74,7 +74,7 @@ def remove_free_items(counter):
     # Let's follow a functional approach and not modify the original argument
     new_counter = copy(counter)
     for sku, (for_each, free_count, free_sku) in discounts_free_items.items():
-        potential_free_count = (counter[sku] // for_each) * free_count
+        potential_free_count = (counter.get(sku, 0) // for_each) * free_count
         if free_sku in new_counter:
             new_counter[free_sku] -= potential_free_count
             if new_counter[free_sku] == 0:
@@ -101,6 +101,7 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 

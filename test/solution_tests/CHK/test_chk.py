@@ -22,8 +22,8 @@ def test_badtype_input():
 
 
 def test_non_existing_sku():
-    assert checkout("X") == -1
-    assert checkout("A X") == -1
+    assert checkout("Ñ") == -1
+    assert checkout("A Ñ") == -1
 
 
 def test_single_items():
@@ -154,6 +154,7 @@ def test_remove_free_items(before, after):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 
