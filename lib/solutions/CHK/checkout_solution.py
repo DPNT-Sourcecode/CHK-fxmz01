@@ -10,6 +10,7 @@ prices = {
     "C": 20,
     "D": 15,
     "E": 40,
+    "F": 10,
 }
 
 discounts = {
@@ -17,6 +18,9 @@ discounts = {
     # This of course wouldn't apply in a real case where this data would come from a DB
     "A": [(5, 200), (3, 130)],
     "B": [(2, 45)],
+    # This can be more easily implemented as a 1/3 discount for every pack of 3
+    # The price is read from the prices dict so that we have a single source of truth for prices!
+    "F": [(3, 2 * prices["F"])],
 }
 
 free_items = {"E": (2, 1, "B")}
@@ -67,4 +71,5 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
