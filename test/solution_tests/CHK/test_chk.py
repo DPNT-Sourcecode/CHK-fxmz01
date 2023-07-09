@@ -70,13 +70,15 @@ def test_multiple_discounted_items():
         ("EEEE BB", 40 * 4),
     ],
 )
-def test_free_items(skus, price):
+def test_free_items_discounts(skus, price):
     assert checkout(skus) == price
 
 
 def test_free_item_discount_not_applied_when_free_items_not_in_cart():
     assert checkout("EE") == 40 * 2
 
+def test_free_discount_for_the_same_sku():
+    
 
 ####################################
 # Internals tests
@@ -131,4 +133,5 @@ def test_remove_free_items(before, after):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
