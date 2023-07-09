@@ -114,14 +114,19 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
         # TODO sorted iterator instead of sort in place?
         group_count = 0
         for sku in skus_group:
+            print(f"SKU {sku}")
             group_count += new_counter.get(sku, 0)
-            packs, _discountpack_counts(group_count, pack_size)
+
+            packs, group_count = _discountpack_counts(group_count, pack_size)
+            total += packs * pack_price
+            print(f"total {total}, group_count { group_count}")
 
     return total, new_counter
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
