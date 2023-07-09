@@ -41,10 +41,18 @@ discounts_bulk = {
     # This can be more easily implemented as a 1/3 discount for every pack of 3
     # The price is read from the prices dict so that we have a single source of truth for prices!
     "F": [(3, 2 * prices["F"])],
-    "H": [()]
+    "H": [(10, 80), (5, 45)],
+    "K": [(2, 150)],
+    "P": [(5, 200)],
+    "Q": [(3, 80)],
+    "U": [(4, 3 * prices["U"])],
+    "V": [()]
 }
 
-discounts_free_items = {"E": (2, 1, "B")}
+discounts_free_items = {
+    "E": (2, 1, "B"),
+    "N": (3, 1, "M"),
+}
 
 
 def get_items_price(sku, count):
@@ -92,4 +100,5 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
