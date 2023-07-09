@@ -153,6 +153,3 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
-
-
-
