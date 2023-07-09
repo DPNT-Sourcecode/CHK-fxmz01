@@ -114,7 +114,7 @@ def test_get_items_price(sku, count, price):
     [
         ({"E": 2, "B": 1}, {"E": 2}),
         ({"E": 2, "B": 2}, {"E": 2, "B": 1}),
-        ({"E": 2, "B": 2, "A": 1}, {"E": 2, "B": 1}),
+        ({"E": 5, "B": 3, "A": 1}, {"E": 2, "B": 1, "A": 1}),
     ],
 )
 def test_remove_free_items(before, after):
@@ -130,6 +130,7 @@ def test_remove_free_items(before, after):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
 

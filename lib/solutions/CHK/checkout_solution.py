@@ -1,4 +1,5 @@
 from collections import Counter
+from copy import copy
 
 
 ERROR = -1
@@ -21,7 +22,6 @@ discounts = {
 free_items = {"E": (2, 1, "B")}
 
 
-
 def get_items_price(sku, count):
     price = 0
     for pack_size, pack_price in discounts.get(sku, []):
@@ -34,9 +34,14 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     """Returns number of packs, number of individual priced items"""
     return count // pack_size, count % pack_size
 
-def remove_free_items(counter):
-    for sku, count, free_count, free_sku in free_items.items():
 
+def remove_free_items(counter):
+    # Let's follow a functional approach and not modify the original argument
+    new_counter = copy(counter)
+    for sku, for_each, free_count, free_sku in free_items.items():
+        potential_free_count = (counter[sku] // for_each) * free_count
+        counter
+    return new_counter
 
 def get_free_items_discount(sku: str, counter: dict[str, int]) -> tuple[str, int]:
     for_each, free_count, free_sku = free_items.get(sku, (0, 0, None))
@@ -73,6 +78,7 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
