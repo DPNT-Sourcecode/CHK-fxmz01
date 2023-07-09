@@ -3,6 +3,7 @@ import pytest
 from lib.solutions.CHK.checkout_solution import (
     _counter,
     _discountpack_counts,
+    apply_group_discounts,
     checkout,
     get_items_price,
     remove_free_items,
@@ -126,7 +127,15 @@ def test_discountpack_counts():
 
 
 @pytest.mark.parametrize(
-    "sku,count,price",
+    "counter,total_price,updated_counter",
+    [],
+)
+def test_apply_group_discounts(counter, total_price, updated_counter):
+    assert apply_group_discounts(counter) == total_price, updated_counter
+
+
+@pytest.mark.parametrize(
+    "sku, count,price",
     [
         ("A", 2, 50 * 2),
         ("A", 3, 130),
@@ -142,7 +151,7 @@ def test_get_items_price(sku, count, price):
 
 
 @pytest.mark.parametrize(
-    "before,after",
+    "before, after",
     [
         ({"E": 2}, {"E": 2}),
         ({"E": 2, "B": 1}, {"E": 2}),
@@ -152,6 +161,5 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
-
 
 

@@ -85,9 +85,9 @@ def remove_free_items(counter):
                 del new_counter[free_sku]
     return new_counter
 
-def apply_group_discounts(counter: dict[str,int])->int, dict[str,int]:
-    pass
 
+def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
+    return 0, counter
 
 
 # noinspection PyUnusedLocal
@@ -109,5 +109,6 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
