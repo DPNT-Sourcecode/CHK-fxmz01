@@ -107,16 +107,21 @@ def remove_free_items(counter):
 def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
     total = 0
     new_counter = copy(counter)
-    for group, for_each, group_price in discounts_groups:
+    for skus_group, pack_size, pack_price in discounts_groups:
         # By sorting from expensive to cheaper we ensure we favour
         # the customer by applying the best possible discount
-        group.sort(key=lambda sku: prices[sku], reverse=True)
-        for sku in group:
-            new_counter.get(sku,0)
+        skus_group.sort(key=lambda sku: prices[sku], reverse=True)
+        # TODO sorted iterator instead of sort in place?
+        group_count = 0
+        for sku in skus_group:
+            group_count += new_counter.get(sku, 0)
+            packs, _discountpack_counts(group_count, pack_size)
+
     return total, new_counter
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
