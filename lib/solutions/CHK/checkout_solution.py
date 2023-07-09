@@ -11,9 +11,29 @@ prices = {
     "D": 15,
     "E": 40,
     "F": 10,
+    "G": 20,
+    "H": 10,
+    "I": 35,
+    "J": 60,
+    "K": 80,
+    "L": 90,
+    "M": 15,
+    "N": 40,
+    "O": 10,
+    "P": 50,
+    "Q": 30,
+    "R": 50,
+    "S": 30,
+    "T": 20,
+    "U": 40,
+    "V": 50,
+    "W": 20,
+    "X": 90,
+    "Y": 10,
+    "Z": 50,
 }
 
-discounts = {
+discounts_bulk = {
     # By hardcoding discounts ordering (big to small) we can simplify calculating item prices.
     # This of course wouldn't apply in a real case where this data would come from a DB
     "A": [(5, 200), (3, 130)],
@@ -21,14 +41,15 @@ discounts = {
     # This can be more easily implemented as a 1/3 discount for every pack of 3
     # The price is read from the prices dict so that we have a single source of truth for prices!
     "F": [(3, 2 * prices["F"])],
+    "H": [()]
 }
 
-free_items = {"E": (2, 1, "B")}
+discounts_free_items = {"E": (2, 1, "B")}
 
 
 def get_items_price(sku, count):
     price = 0
-    for pack_size, pack_price in discounts.get(sku, []):
+    for pack_size, pack_price in discounts_bulk.get(sku, []):
         packs, count = _discountpack_counts(count, pack_size)
         price += packs * pack_price
     return price + count * prices[sku]
@@ -43,7 +64,7 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
 def remove_free_items(counter):
     # Let's follow a functional approach and not modify the original argument
     new_counter = copy(counter)
-    for sku, (for_each, free_count, free_sku) in free_items.items():
+    for sku, (for_each, free_count, free_sku) in discounts_free_items.items():
         potential_free_count = (counter[sku] // for_each) * free_count
         if free_sku in new_counter:
             new_counter[free_sku] -= potential_free_count
@@ -71,3 +92,4 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
