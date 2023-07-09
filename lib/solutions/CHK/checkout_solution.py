@@ -56,11 +56,10 @@ discounts_free_items = {
 }
 
 discounts_groups = [
-    ()
+    # There is only one group discount specified, but there's no 
+    # reason why we couldn't have more so I'm implementing this a list
+    (("S", "T", "X", "Y", "Z"), 3, 45),
 ]
-
-    frozenset(("S", "T", "X", "Y", "Z")): 45,
-}
 
 
 # noinspection PyUnusedLocal
@@ -106,11 +105,14 @@ def remove_free_items(counter):
 
 
 def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
+    for group, for_each, group_price in discounts_groups:
+        sort
     return 0, counter
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
