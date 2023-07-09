@@ -56,8 +56,9 @@ discounts_free_items = {
 }
 
 discounts_groups = {
-    
+    frozenset(("S", "T", "X", "Y", "Z")): 45,
 }
+
 
 def get_items_price(sku, count):
     price = 0
@@ -104,5 +105,6 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
