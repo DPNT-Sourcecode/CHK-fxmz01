@@ -73,6 +73,10 @@ def test_free_items(skus, price):
     assert checkout(skus) == price
 
 
+def test_free_item_discount_not_applied_when_free_items_not_in_cart():
+    assert checkout("EE") == 40 * 2
+
+
 ####################################
 # Internals tests
 
@@ -100,8 +104,8 @@ def test_discountpack_counts():
         ("A", 9, 200 + 130 + 50),
     ],
 )
-def test_get_items_price():
-    assert get_items_price("A", 2) == 50 * 2
+def test_get_items_price(sku, count, price):
+    assert get_items_price(sku, count) == price
 
 
 # +------+-------+----------------+
@@ -112,3 +116,4 @@ def test_get_items_price():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
