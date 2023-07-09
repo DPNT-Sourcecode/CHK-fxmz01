@@ -46,12 +46,13 @@ discounts_bulk = {
     "P": [(5, 200)],
     "Q": [(3, 80)],
     "U": [(4, 3 * prices["U"])],
-    "V": [()]
+    "V": [(3, 130), (2, 90)],
 }
 
 discounts_free_items = {
     "E": (2, 1, "B"),
     "N": (3, 1, "M"),
+    "R": (3, 1, "Q"),
 }
 
 
@@ -100,5 +101,6 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
