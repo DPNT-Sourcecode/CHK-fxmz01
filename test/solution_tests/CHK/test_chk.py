@@ -131,8 +131,3 @@ def test_remove_free_items(before, after):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
-
-
-
-
-

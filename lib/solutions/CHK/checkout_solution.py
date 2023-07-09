@@ -43,7 +43,7 @@ def remove_free_items(counter):
         if free_sku in new_counter:
             new_counter[free_sku] -= potential_free_count
             if new_counter[free_sku]==0:
-                de
+                del new_counter[free_sku]
     return new_counter
 
 
@@ -82,10 +82,3 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
-
-
-
-
-
-
-
