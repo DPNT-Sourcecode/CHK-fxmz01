@@ -38,10 +38,14 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
 def remove_free_items(counter):
     # Let's follow a functional approach and not modify the original argument
     new_counter = copy(counter)
-    for sku, for_each, free_count, free_sku in free_items.items():
+    for sku, (for_each, free_count, free_sku) in free_items.items():
         potential_free_count = (counter[sku] // for_each) * free_count
-        counter
+        if free_sku in new_counter:
+            new_counter[free_sku] -= potential_free_count
+            if new_counter[free_sku]==0:
+                de
     return new_counter
+
 
 def get_free_items_discount(sku: str, counter: dict[str, int]) -> tuple[str, int]:
     for_each, free_count, free_sku = free_items.get(sku, (0, 0, None))
@@ -78,6 +82,7 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
