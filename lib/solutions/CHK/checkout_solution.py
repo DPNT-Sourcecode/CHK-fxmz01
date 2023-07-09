@@ -108,12 +108,14 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
     total = 0
     new_counter = copy(counter)
     for skus_group, pack_size, pack_price in discounts_groups:
+        print("OUTER_________________________")
         # By sorting from expensive to cheaper we ensure we favour
         # the customer by applying the best possible discount
         skus_group.sort(key=lambda sku: prices[sku], reverse=True)
         # TODO sorted iterator instead of sort in place?
         group_count = 0
         for sku in skus_group:
+            print("---------------INNER")
             print(f"SKU {sku}")
             group_count += new_counter.get(sku, 0)
 
@@ -126,6 +128,7 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
