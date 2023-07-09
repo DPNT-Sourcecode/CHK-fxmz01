@@ -93,7 +93,7 @@ def checkout(skus: str) -> int:
         return ERROR
 
     counter = remove_free_items(_counter(skus))
-    total = 0
+    total, counter = apply_group_discounts(counter)
     for sku, count in counter.items():
         if sku not in prices:
             return ERROR
@@ -105,3 +105,4 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
