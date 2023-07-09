@@ -90,7 +90,8 @@ def test_free_item_discount_not_applied_when_free_items_not_in_cart():
 def test_free_discount_for_the_same_sku(skus, price):
     assert checkout(skus) == price
 
-
+def test_group_discount():
+    
 ####################################
 # Internals tests
 
@@ -144,3 +145,4 @@ def test_remove_free_items(before, after):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
