@@ -63,7 +63,7 @@ def test_multiple_discounted_items():
 
 
 @pytest.mark.parametrize(
-    "skus,price",
+    "skus, price",
     [
         ("E B", 40 + 30),
         ("EE B", 40 * 2),
@@ -81,7 +81,7 @@ def test_free_item_discount_not_applied_when_free_items_not_in_cart():
 
 
 @pytest.mark.parametrize(
-    "skus,price",
+    "skus, price",
     [
         ("FF", 10 * 2),
         ("FFF", 10 * 2),
@@ -94,7 +94,7 @@ def test_free_discount_for_the_same_sku(skus, price):
 
 
 @pytest.mark.parametrize(
-    "skus,price",
+    "skus, price",
     [
         ("STX", 45),
         ("ZXS", 45),
@@ -127,15 +127,7 @@ def test_discountpack_counts():
 
 
 @pytest.mark.parametrize(
-    "counter,total_price,updated_counter",
-    [],
-)
-def test_apply_group_discounts(counter, total_price, updated_counter):
-    assert apply_group_discounts(counter) == total_price, updated_counter
-
-
-@pytest.mark.parametrize(
-    "sku, count,price",
+    "sku, count, price",
     [
         ("A", 2, 50 * 2),
         ("A", 3, 130),
@@ -161,5 +153,6 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
 
 

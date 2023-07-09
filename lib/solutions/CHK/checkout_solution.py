@@ -55,39 +55,12 @@ discounts_free_items = {
     "R": (3, 1, "Q"),
 }
 
-discounts_groups = {
+discounts_groups = [
+    ()
+]
+
     frozenset(("S", "T", "X", "Y", "Z")): 45,
 }
-
-
-def get_items_price(sku, count):
-    price = 0
-    for pack_size, pack_price in discounts_bulk.get(sku, []):
-        packs, count = _discountpack_counts(count, pack_size)
-        price += packs * pack_price
-    return price + count * prices[sku]
-
-
-def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
-    """Returns number of packs, number of individual priced items"""
-    return count // pack_size, count % pack_size
-
-
-# TODO At this point it probably makes senses to make counter a class
-def remove_free_items(counter):
-    # Let's follow a functional approach and not modify the original argument
-    new_counter = copy(counter)
-    for sku, (for_each, free_count, free_sku) in discounts_free_items.items():
-        potential_free_count = (counter.get(sku, 0) // for_each) * free_count
-        if free_sku in new_counter:
-            new_counter[free_sku] -= potential_free_count
-            if new_counter[free_sku] == 0:
-                del new_counter[free_sku]
-    return new_counter
-
-
-def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
-    return 0, counter
 
 
 # noinspection PyUnusedLocal
@@ -107,8 +80,38 @@ def checkout(skus: str) -> int:
     return total
 
 
+def get_items_price(sku, count):
+    price = 0
+    for pack_size, pack_price in discounts_bulk.get(sku, []):
+        packs, count = _discountpack_counts(count, pack_size)
+        price += packs * pack_price
+    return price + count * prices[sku]
+
+
+def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
+    """Returns number of packs, number of individual priced items"""
+    return count // pack_size, count % pack_size
+
+
+def remove_free_items(counter):
+    # Let's follow a functional approach and not modify the original argument
+    new_counter = copy(counter)
+    for sku, (for_each, free_count, free_sku) in discounts_free_items.items():
+        potential_free_count = (counter.get(sku, 0) // for_each) * free_count
+        if free_sku in new_counter:
+            new_counter[free_sku] -= potential_free_count
+            if new_counter[free_sku] == 0:
+                del new_counter[free_sku]
+    return new_counter
+
+
+def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
+    return 0, counter
+
+
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
