@@ -40,8 +40,8 @@ def get_free_items_discount(sku: str, counter: dict[str, int]) -> tuple[str, int
         potential_free_count = (counter[sku] // for_each) * free_count
         actual_free_count = min(potential_free_count, counter.get(free_sku, 0))
 
-        print(f"free disc {actual_free_count * prices[sku]}")
-        return actual_free_count * prices[sku]
+        print(f"free disc {actual_free_count * prices[free_sku]}")
+        return actual_free_count * prices[free_sku]
     else:
         return 0
 
@@ -53,6 +53,7 @@ def checkout(skus: str) -> int:
         return ERROR
 
     counter = _counter(skus)
+    counter = remove_free_items()
     total = 0
     for sku, count in counter.items():
         if sku not in prices:
@@ -68,5 +69,6 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
