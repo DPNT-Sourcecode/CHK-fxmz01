@@ -15,7 +15,7 @@ prices = {
     "H": 10,
     "I": 35,
     "J": 60,
-    "K": 80,
+    "K": 70,
     "L": 90,
     "M": 15,
     "N": 40,
@@ -23,14 +23,14 @@ prices = {
     "P": 50,
     "Q": 30,
     "R": 50,
-    "S": 30,
+    "S": 20,
     "T": 20,
     "U": 40,
     "V": 50,
     "W": 20,
-    "X": 90,
-    "Y": 10,
-    "Z": 50,
+    "X": 17,
+    "Y": 20,
+    "Z": 21,
 }
 
 discounts_bulk = {
@@ -42,7 +42,7 @@ discounts_bulk = {
     # The price is read from the prices dict so that we have a single source of truth for prices!
     "F": [(3, 2 * prices["F"])],
     "H": [(10, 80), (5, 45)],
-    "K": [(2, 150)],
+    "K": [(2, 120)],
     "P": [(5, 200)],
     "Q": [(3, 80)],
     "U": [(4, 3 * prices["U"])],
@@ -101,3 +101,4 @@ def checkout(skus: str) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
