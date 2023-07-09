@@ -105,15 +105,18 @@ def remove_free_items(counter):
 
 
 def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
+    total = 0
+    new_counter = copy(counter)
     for group, for_each, group_price in discounts_groups:
         # By sorting from expensive to cheaper we ensure we favour
         # the customer by applying the best possible discount
         group.sort(key=lambda sku: prices[sku], reverse=True)
         for sku in group:
-            
-    return 0, counter
+            new_counter.get(sku,0)
+    return total, new_counter
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
