@@ -5,6 +5,7 @@ from lib.solutions.CHK.checkout_solution import (
     _discountpack_counts,
     checkout,
     get_items_price,
+    remove_free_items,
 )
 
 
@@ -107,7 +108,10 @@ def test_discountpack_counts():
 def test_get_items_price(sku, count, price):
     assert get_items_price(sku, count) == price
 
-
+# TODO Ideally this function would follow a functional approach and not depend on hardcoded discount info
+def test_remove_free_items():
+    counter = {"E": 2, "B": 1}
+    assert remove_free_items(counter)
 # +------+-------+----------------+
 # | Item | Price | Special offers |
 # +------+-------+----------------+
@@ -116,4 +120,5 @@ def test_get_items_price(sku, count, price):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
