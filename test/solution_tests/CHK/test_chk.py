@@ -108,10 +108,20 @@ def test_discountpack_counts():
 def test_get_items_price(sku, count, price):
     assert get_items_price(sku, count) == price
 
-# TODO Ideally this function would follow a functional approach and not depend on hardcoded discount info
-def test_remove_free_items():
-    counter = {"E": 2, "B": 1}
-    assert remove_free_items(counter)
+
+@pytest.mark.parametrize(
+    "before,after",
+    [
+        ({"E": 2, "B": 1}, {"E": 2}),
+        ({"E": 2, "B": 2}, {"E": 2, "B": 1}),
+        ({"E": 2, "B": 2, "A": 1}, {"E": 2, "B": 1}),
+    ],
+)
+def test_remove_free_items(before, after):
+    # TODO Ideally this function would follow a functional approach and not depend on hardcoded discount info
+    assert remove_free_items(before) == after
+
+
 # +------+-------+----------------+
 # | Item | Price | Special offers |
 # +------+-------+----------------+
@@ -120,5 +130,6 @@ def test_remove_free_items():
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
