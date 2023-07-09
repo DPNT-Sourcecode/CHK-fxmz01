@@ -35,6 +35,7 @@ def _discountpack_counts(count: int, pack_size: int) -> tuple[int, int]:
     return count // pack_size, count % pack_size
 
 
+# TODO At this point it probably makes senses to make counter a class
 def remove_free_items(counter):
     # Let's follow a functional approach and not modify the original argument
     new_counter = copy(counter)
@@ -42,21 +43,9 @@ def remove_free_items(counter):
         potential_free_count = (counter[sku] // for_each) * free_count
         if free_sku in new_counter:
             new_counter[free_sku] -= potential_free_count
-            if new_counter[free_sku]==0:
+            if new_counter[free_sku] == 0:
                 del new_counter[free_sku]
     return new_counter
-
-
-def get_free_items_discount(sku: str, counter: dict[str, int]) -> tuple[str, int]:
-    for_each, free_count, free_sku = free_items.get(sku, (0, 0, None))
-    if free_sku:
-        potential_free_count = (counter[sku] // for_each) * free_count
-        actual_free_count = min(potential_free_count, counter.get(free_sku, 0))
-
-        print(f"free disc {actual_free_count * prices[free_sku]}")
-        return actual_free_count * prices[free_sku]
-    else:
-        return 0
 
 
 # noinspection PyUnusedLocal
@@ -65,20 +54,17 @@ def checkout(skus: str) -> int:
     if not isinstance(skus, str):
         return ERROR
 
-    counter = _counter(skus)
-    counter = remove_free_items(counter)
+    counter = remove_free_items(_counter(skus))
     total = 0
     for sku, count in counter.items():
         if sku not in prices:
             return ERROR
 
         total += get_items_price(sku, count)
-        total -= get_free_items_discount(sku, counter)
-        # Free items?
-        # free_sku, free_item_discount = get_free_items_discount(sku, count)
 
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
