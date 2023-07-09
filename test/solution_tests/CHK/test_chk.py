@@ -17,8 +17,8 @@ def test_badtype_input():
     assert checkout(1) == -1
 
 
-# TODO Is it worth to use parameterize in these tests?
-
+# TODO Parameterize these tests?
+# TODO Ideally these functions would follow a functional approach and not depend on hardcoded price and discount info
 
 def test_non_existing_sku():
     assert checkout("X") == -1
@@ -77,8 +77,19 @@ def test_free_items_discounts(skus, price):
 def test_free_item_discount_not_applied_when_free_items_not_in_cart():
     assert checkout("EE") == 40 * 2
 
-def test_free_discount_for_the_same_sku():
-    
+
+@pytest.mark.parametrize(
+    "skus,price",
+    [
+        ("FF", 10 * 2),
+        ("FFF", 10 * 2),
+        ("FFFF", 10 * 2 + 10),
+        ("FFF FFF", 10 * 2 * 2),
+    ],
+)
+def test_free_discount_for_the_same_sku(skus, price):
+    assert checkout(skus) == price
+
 
 ####################################
 # Internals tests
@@ -121,7 +132,7 @@ def test_get_items_price(sku, count, price):
     ],
 )
 def test_remove_free_items(before, after):
-    # TODO Ideally this function would follow a functional approach and not depend on hardcoded discount info
+    
     assert remove_free_items(before) == after
 
 
@@ -133,5 +144,6 @@ def test_remove_free_items(before, after):
 # | C    | 20    |                |
 # | D    | 15    |                |
 # +------+-------+----------------+
+
 
 
