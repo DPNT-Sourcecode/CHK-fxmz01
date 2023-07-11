@@ -105,9 +105,9 @@ def checkout(skus: str) -> int:
 def get_items_price(sku, count):
     price = 0
     for pack_size, pack_price in discounts_bulk.get(sku, []):
-        packs, count = divmod(count, pack_size)
+        packs, rest = divmod(count, pack_size)
         price += packs * pack_price
-    return price + count * prices[sku]
+    return price + rest * prices[sku]
 
 
 def remove_free_items(counter):
@@ -128,8 +128,13 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
     for skus_group, pack_size, pack_price in discounts_groups:
         # By sorting from expensive to cheaper we ensure we favour
         # the customer by applying the best possible discount
-        skus_group.sort(key=lambda sku: prices[sku], reverse=True)
+        # skus_group.sort(key=lambda sku: prices[sku], reverse=True)
         # TODO sorted iterator instead of sort in place?
+
+        group_count = sum((count for sku,count in counter.items() if sku in skus_group))
+        packs, divmod(group_count,pack_size)
+
+
         group_count = 0
         for sku in skus_group:
             group_count += new_counter.get(sku, 0)
@@ -143,3 +148,4 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
