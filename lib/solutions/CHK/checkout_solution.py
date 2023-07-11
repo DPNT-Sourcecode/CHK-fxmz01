@@ -1,3 +1,7 @@
+# NOTES
+# - 
+At some point I considered creating classes (e.g. Cart) to handle data here. 
+
 from collections import Counter
 from copy import copy
 
@@ -128,3 +132,4 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+

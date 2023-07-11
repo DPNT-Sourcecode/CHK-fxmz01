@@ -131,14 +131,16 @@ def test_free_discount_for_the_same_sku(skus, price):
     "skus, price",
     [
         ("STX", 45),
-        # ("ZXS", 45),
-        # ("STX XYZ", 45 * 2),
-        # ("SSS", 45),
-        # ("STX S", 45 + 20),
-        # # We can mix group and bulk offers
-        # ("STX S AAA", 45 + 20 + 130),
-        # # We can mix group and free item offers
-        # ("STX NNN M", 45 + 40 * 3),
+        ("ZXS", 45),
+        ("STX XYZ", 45 * 2),
+        ("SSS", 45),
+        # When not all items can be added to a group offer, the cheapest ones are charged
+        ("SST X", 45 + 17),
+        ("SST XY", 45 + 17 + 20),
+        # We can mix group and bulk offers
+        ("STX S AAA", 45 + 20 + 130),
+        # We can mix group and free item offers
+        ("STX NNN M", 45 + 40 * 3),
     ],
 )
 def test_group_discount(skus, price):
@@ -187,6 +189,7 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
 
 
 
