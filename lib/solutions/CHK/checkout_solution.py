@@ -92,7 +92,7 @@ def checkout(skus: str) -> int:
         return ERROR
 
     counter = remove_free_items(_counter(skus))
-    total, counter = add_group_discounts(counter)
+    total, counter = add_group_discounted_items(counter)
     for sku, count in counter.items():
         if sku not in prices:
             return ERROR
@@ -122,29 +122,16 @@ def remove_free_items(counter):
     return new_counter
 
 
-def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
+def add_group_discounted_items(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
     total = 0
     new_counter = copy(counter)
     for skus_group, pack_size, pack_price in discounts_groups:
-        # By sorting from expensive to cheaper we ensure we favour
-        # the customer by applying the best possible discount
-        # skus_group.sort(key=lambda sku: prices[sku], reverse=True)
-        # TODO sorted iterator instead of sort in place?
-
         group_count = sum(
             (count for sku, count in counter.items() if sku in skus_group)
         )
         packs, rest = divmod(group_count, pack_size)
         rest_price = n_cheapest_total(skus_group, rest, counter)
         total += packs * pack_price + rest_price
-
-        # group_count = 0
-        # for sku in skus_group:
-        #     group_count += new_counter.get(sku, 0)
-        #     packs, group_count = divmod(group_count, pack_size)
-        #     total += packs * pack_price
-        #     # Remove sku so we don't charge twice
-        #     new_counter[sku] = 0
 
         # Remove sku so we don't charge twice
         for sku in skus_group:
@@ -157,13 +144,14 @@ def n_cheapest_total(skus: list[str], n: int, counter: dict[str, int]) -> int:
     total = 0
     for sku in sorted(skus, key=lambda sku: prices[sku]):
         take = min(n, counter[sku])
-        n-=take
-        total +=take* prices[sku]
+        n -= take
+        total += take * prices[sku]
     return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
