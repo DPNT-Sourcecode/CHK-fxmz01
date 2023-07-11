@@ -30,35 +30,43 @@ def test_single_items():
     assert checkout("B") == 30
     assert checkout("C") == 20
 
-
+@pytest.mark.parametrize(
+    "skus, price",
+    [])
 def test_multiple_items():
     assert checkout("A A") == 100
     assert checkout("A C A") == 120
 
 
-def test_discounted_items():
-    assert checkout("A A A") == 130
-    # Having sums rather than results on the right side facilitates
-    # understanding where the numbers come from
-    assert checkout("A A A A") == 130 + 50
-    assert checkout("A A A A B B") == 130 + 50 + 45
-    assert checkout("A A A B B B") == 130 + 45 + 30
-    assert checkout("A A A C") == 130 + 20
+@pytest.mark.parametrize(
+    "skus, price",
+    [
+        ("A A A", 130),
+        # Having sums rather than results on the right side facilitates
+        # understanding where the numbers come from
+        ("A A A A", 130 + 50),
+        ("A A A A B B", 130 + 50 + 45),
+        ("A A A B B B", 130 + 45 + 30),
+        ("A A A C", 130 + 20),
+    ],
+)
+def test_discounted_items(skus, price):
+    assert checkout(skus) == price
+
 
 @pytest.mark.parametrize(
     "skus",
     [
-        (("AAAAA AAA A"), 200 + 130 + 50),
-        (("AAAAA AAA A BB"), 200 + 130 + 50 + 45),
+        "AA",
+        " AA ",
+        "A A",
+        " A A ",
     ],
 )
 def test_spacing(skus):
     # It is not specified how the items are separated in the input,
     # or even if they are
-    assert checkout("AA") == 100
-    assert checkout(" AA ") == 100
-    assert checkout("A A") == 100
-    assert checkout(" A A ") == 100
+    assert checkout(skus) == 100
 
 
 @pytest.mark.parametrize(
@@ -163,4 +171,5 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
 
