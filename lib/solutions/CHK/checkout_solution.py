@@ -1,16 +1,19 @@
 # NOTES
 # - Functional approach
-#   At some point I considered creating classes (e.g. Cart) to handle data here. 
-#   I ended up deciding trying to get to the end of the exercise following a 
-#   functional like approach. I'm not dogmatic about OOP vs Functional 
+#   At some point I considered creating classes (e.g. Cart) to handle data here.
+#   I ended up deciding trying to get to the end of the exercise following a
+#   functional like approach. I'm not dogmatic about OOP vs Functional
 #   (or about anything else really) and I think both approaches could work nicely here.
-#   But I think this kind of exercise suits functional nicely, and testing 
+#   But I think this kind of exercise suits functional nicely, and testing
 #   becomes easier due to the lack of coupling between tests and object state.
 
 # - Debugging
 #   I don't normally rely on prints for debugging purposes. I started doing it because
-#   I couldn't 
-#   
+#   I couldn't make my IDE run the tests. I just realised why that is (silly me!)
+#   I always try to encourage fellow devs to make use of proper debugging tools rather
+#   than use prints (or better, in addition to). It can make the process so much faster!
+#   I guess I'm paying a few minutes of extra time because of it.
+
 
 from collections import Counter
 from copy import copy
@@ -122,25 +125,21 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
     total = 0
     new_counter = copy(counter)
     for skus_group, pack_size, pack_price in discounts_groups:
-        print("OUTER_________________________")
         # By sorting from expensive to cheaper we ensure we favour
         # the customer by applying the best possible discount
         skus_group.sort(key=lambda sku: prices[sku], reverse=True)
         # TODO sorted iterator instead of sort in place?
         group_count = 0
         for sku in skus_group:
-            print("---------------INNER")
-            print(f"SKU {sku}")
             group_count += new_counter.get(sku, 0)
-
             packs, group_count = _discountpack_counts(group_count, pack_size)
             total += packs * pack_price
-            print(f"total {total}, group_count { group_count}")
 
     return total, new_counter
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
