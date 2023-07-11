@@ -92,13 +92,18 @@ def checkout(skus: str) -> int:
         return ERROR
 
     counter = remove_free_items(_counter(skus))
-    total, counter = add_group_discounted_items(counter)
+    total, counter = group_discounted_items_price(counter)
+    total += regular_items_price(counter)
+    return total
+
+
+def regular_items_price(counter):
+    total = 0
     for sku, count in counter.items():
         if sku not in prices:
             return ERROR
 
         total += get_items_price(sku, count)
-
     return total
 
 
@@ -122,7 +127,7 @@ def remove_free_items(counter):
     return new_counter
 
 
-def add_group_discounted_items(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
+def group_discounted_items_price(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
     total = 0
     new_counter = copy(counter)
     for skus_group, pack_size, pack_price in discounts_groups:
@@ -151,6 +156,7 @@ def n_cheapest_total(skus: list[str], n: int, counter: dict[str, int]) -> int:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
