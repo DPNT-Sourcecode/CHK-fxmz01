@@ -135,7 +135,8 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
             (count for sku, count in counter.items() if sku in skus_group)
         )
         packs, rest = divmod(group_count, pack_size)
-        total += packs * pack_price + n_cheapest_total(skus_group, rest)
+        rest_price = n_cheapest_total(skus_group, rest, counter)
+        total += packs * pack_price + rest_price
 
         # group_count = 0
         # for sku in skus_group:
@@ -152,15 +153,18 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
     return total, new_counter
 
 
-def n_cheapest_total(skus: list[str], n: int) -> int:
-    
+def n_cheapest_total(skus: list[str], n: int, counter: dict[str, int]) -> int:
+    total = 0
     for sku in sorted(skus, key=lambda sku: prices[sku]):
-
-    return 0
+        take = min(n, counter[sku])
+        n-=take
+        total +=take* prices[sku]
+    return total
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
