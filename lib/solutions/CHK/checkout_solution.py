@@ -6,13 +6,19 @@
 #   (or about anything else really) and I think both approaches could work nicely here.
 #   But I think this kind of exercise suits functional nicely, and testing
 #   becomes easier due to the lack of coupling between tests and object state.
-
+# 
 # - Debugging
 #   I don't normally rely on prints for debugging purposes. I started doing it because
 #   I couldn't make my IDE run the tests. I just realised why that is (silly me!)
 #   I always try to encourage fellow devs to make use of proper debugging tools rather
 #   than use prints (or better, in addition to). It can make the process so much faster!
 #   I guess I'm paying a few minutes of extra time because of it.
+# 
+# - Final cleanup
+#   In a real case, unless there is a huge time pressure to realease a fix for production,
+#   I always spend a bit time cleaning up my code and trying to make it a bit easier to 
+#   read and work with. I'm doing the same here. I believe this kind of thing is a clear
+#   time saver in the long run (or actually, often sooner, as soon as during the review process!)
 
 
 from collections import Counter
@@ -140,6 +146,7 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
 
