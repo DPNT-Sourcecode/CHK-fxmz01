@@ -2,7 +2,6 @@ import pytest
 
 from lib.solutions.CHK.checkout_solution import (
     _counter,
-    _discountpack_counts,
     checkout,
     get_items_price,
     remove_free_items,
@@ -130,12 +129,12 @@ def test_free_discount_for_the_same_sku(skus, price):
 @pytest.mark.parametrize(
     "skus, price",
     [
-        ("STX", 45),
+        # ("STX", 45),
         # ("ZXS", 45),
         # ("STX XYZ", 45 * 2),
         # ("SSS", 45),
         # # When not all items can be added to a group offer, the cheapest ones are charged
-        # ("SST X", 45 + 17),
+        ("SST X", 45 + 17),
         # ("SST XY", 45 + 17 + 20),
         # # We can mix group and bulk offers
         # ("STX S AAA", 45 + 20 + 130),
@@ -153,13 +152,6 @@ def test_group_discount(skus, price):
 
 def test_counter():
     assert _counter("A B A") == {"A": 2, "B": 1}
-
-
-def test_discountpack_counts():
-    assert _discountpack_counts(4, 5) == (0, 4)
-    assert _discountpack_counts(4, 2) == (2, 0)
-    assert _discountpack_counts(4, 3) == (1, 1)
-    assert _discountpack_counts(10, 3) == (3, 1)
 
 
 @pytest.mark.parametrize(
@@ -189,6 +181,7 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
 
 
 
