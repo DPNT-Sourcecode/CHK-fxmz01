@@ -1,6 +1,16 @@
 # NOTES
-# - 
-At some point I considered creating classes (e.g. Cart) to handle data here. 
+# - Functional approach
+#   At some point I considered creating classes (e.g. Cart) to handle data here. 
+#   I ended up deciding trying to get to the end of the exercise following a 
+#   functional like approach. I'm not dogmatic about OOP vs Functional 
+#   (or about anything else really) and I think both approaches could work nicely here.
+#   But I think this kind of exercise suits functional nicely, and testing 
+#   becomes easier due to the lack of coupling between tests and object state.
+
+# - Debugging
+#   I don't normally rely on prints for debugging purposes. I started doing it because
+#   I couldn't 
+#   
 
 from collections import Counter
 from copy import copy
@@ -132,4 +142,5 @@ def apply_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
