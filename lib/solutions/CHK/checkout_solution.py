@@ -131,21 +131,28 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
         # skus_group.sort(key=lambda sku: prices[sku], reverse=True)
         # TODO sorted iterator instead of sort in place?
 
-        group_count = sum((count for sku,count in counter.items() if sku in skus_group))
-        packs, divmod(group_count,pack_size)
+        group_count = sum(
+            (count for sku, count in counter.items() if sku in skus_group)
+        )
+        packs, rest = divmod(group_count, pack_size)
+        total += packs * pack_price + n_cheapest_total(skus_group, rest)
 
-
-        group_count = 0
-        for sku in skus_group:
-            group_count += new_counter.get(sku, 0)
-            packs, group_count = divmod(group_count, pack_size)
-            total += packs * pack_price
-            # Remove sku so we don't charge twice
-            new_counter[sku] = 0
+        # group_count = 0
+        # for sku in skus_group:
+        #     group_count += new_counter.get(sku, 0)
+        #     packs, group_count = divmod(group_count, pack_size)
+        #     total += packs * pack_price
+        #     # Remove sku so we don't charge twice
+        #     new_counter[sku] = 0
 
     return total, new_counter
 
 
+def n_cheapest_total(skus: list[str], n: int) -> int:
+    return 0
+
+
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 

@@ -129,7 +129,7 @@ def test_free_discount_for_the_same_sku(skus, price):
 @pytest.mark.parametrize(
     "skus, price",
     [
-        # ("STX", 45),
+        ("STX", 45),
         # ("ZXS", 45),
         # ("STX XYZ", 45 * 2),
         # ("SSS", 45),
@@ -181,3 +181,4 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
