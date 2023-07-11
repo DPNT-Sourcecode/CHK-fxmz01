@@ -3,7 +3,6 @@ import pytest
 from lib.solutions.CHK.checkout_solution import (
     _counter,
     _discountpack_counts,
-    apply_group_discounts,
     checkout,
     get_items_price,
     remove_free_items,
@@ -18,8 +17,7 @@ def test_badtype_input():
     assert checkout(1) == -1
 
 
-# TODO Parameterize these tests?
-# TODO Ideally these functions would follow a functional approach and not depend on hardcoded price and discount info
+# TODO Ideally these functions would follow a functional approach and not depend on hardcoded price and discount info, receiving them as args instead.
 
 
 def test_non_existing_sku():
@@ -47,8 +45,14 @@ def test_discounted_items():
     assert checkout("A A A B B B") == 130 + 45 + 30
     assert checkout("A A A C") == 130 + 20
 
-
-def test_spacing():
+@pytest.mark.parametrize(
+    "skus",
+    [
+        (("AAAAA AAA A"), 200 + 130 + 50),
+        (("AAAAA AAA A BB"), 200 + 130 + 50 + 45),
+    ],
+)
+def test_spacing(skus):
     # It is not specified how the items are separated in the input,
     # or even if they are
     assert checkout("AA") == 100
@@ -57,9 +61,15 @@ def test_spacing():
     assert checkout(" A A ") == 100
 
 
-def test_multiple_discounted_items():
-    assert checkout("AAAAA AAA A") == 200 + 130 + 50
-    assert checkout("AAAAA AAA A BB") == 200 + 130 + 50 + 45
+@pytest.mark.parametrize(
+    "skus, price",
+    [
+        (("AAAAA AAA A"), 200 + 130 + 50),
+        (("AAAAA AAA A BB"), 200 + 130 + 50 + 45),
+    ],
+)
+def test_multiple_discounted_items(skus, price):
+    assert checkout(skus) == price
 
 
 @pytest.mark.parametrize(
@@ -153,3 +163,4 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
