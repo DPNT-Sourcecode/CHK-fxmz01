@@ -143,9 +143,3 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
-
-
-
-
-
-
