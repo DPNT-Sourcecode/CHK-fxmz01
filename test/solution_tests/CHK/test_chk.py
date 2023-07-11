@@ -20,22 +20,38 @@ def test_badtype_input():
 # TODO Ideally these functions would follow a functional approach and not depend on hardcoded price and discount info, receiving them as args instead.
 
 
-def test_non_existing_sku():
-    assert checkout("Ñ") == -1
-    assert checkout("A Ñ") == -1
+@pytest.mark.parametrize(
+    "skus",
+    [
+        "Ñ",
+        "A Ñ",
+    ],
+)
+def test_non_existing_sku(skus):
+    assert checkout(skus) == -1
 
-
-def test_single_items():
-    assert checkout("A") == 50
-    assert checkout("B") == 30
-    assert checkout("C") == 20
 
 @pytest.mark.parametrize(
     "skus, price",
-    [])
-def test_multiple_items():
-    assert checkout("A A") == 100
-    assert checkout("A C A") == 120
+    [
+        ("A", 50),
+        ("B", 30),
+        ("C", 20),
+    ],
+)
+def test_single_items(skus, price):
+    assert checkout(skus) == price
+
+
+@pytest.mark.parametrize(
+    "skus, price",
+    [
+        ("A A", 100),
+        ("A C A", 120),
+    ],
+)
+def test_multiple_items(skus, price):
+    assert checkout(skus) == price
 
 
 @pytest.mark.parametrize(
@@ -171,5 +187,6 @@ def test_get_items_price(sku, count, price):
 )
 def test_remove_free_items(before, after):
     assert remove_free_items(before) == after
+
 
 
