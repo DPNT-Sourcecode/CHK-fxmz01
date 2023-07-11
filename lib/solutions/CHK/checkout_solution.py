@@ -105,9 +105,9 @@ def checkout(skus: str) -> int:
 def get_items_price(sku, count):
     price = 0
     for pack_size, pack_price in discounts_bulk.get(sku, []):
-        packs, rest = divmod(count, pack_size)
+        packs, count = divmod(count, pack_size)
         price += packs * pack_price
-    return price + rest * prices[sku]
+    return price + count * prices[sku]
 
 
 def remove_free_items(counter):
@@ -145,14 +145,22 @@ def add_group_discounts(counter: dict[str, int]) -> tuple[int, dict[str, int]]:
         #     # Remove sku so we don't charge twice
         #     new_counter[sku] = 0
 
+        # Remove sku so we don't charge twice
+        for sku in skus_group:
+            del new_counter[sku]
+
     return total, new_counter
 
 
 def n_cheapest_total(skus: list[str], n: int) -> int:
+    
+    for sku in sorted(skus, key=lambda sku: prices[sku]):
+
     return 0
 
 
 def _counter(skus: str) -> dict[str, int]:
     return Counter(skus.replace(" ", ""))
+
 
 
